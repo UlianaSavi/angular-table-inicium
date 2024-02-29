@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableComponent } from './table/table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -18,7 +17,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
   ],
   providers: [],
   exports: [

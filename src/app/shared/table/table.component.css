@@ -1,10 +1,9 @@
 .table {
   position: relative;
-  width: 100%;
-  max-width: 1200px;
-  height: 90vh;
-  border-radius: 5px;
-  border: 1px solid var(--lite-grey);
+  width: 95%;
+  height: fit-content;
+  max-height: 90vh;
+  padding: 0 20px;
 }
 
 .table-header {
@@ -32,8 +31,10 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  overflow: scroll;
+  overflow: auto;
   color: var(--grey);
+  background: var(--white-simple);
+  border-radius: 20px;
 }
 
 .table-body__row {
@@ -68,6 +69,8 @@
   border: none;
   background: transparent;
   text-align: left;
+  font-weight: 600;
+  text-transform: capitalize;
   cursor: pointer;
 }
 
@@ -84,13 +87,16 @@
 
 .table-body__row__cell,
 .table__names {
-  width: 200px;
+  width: 100%;
   min-width: 200px;
-  border-right: 1px solid var(--lite-grey);
   border-bottom: 1px solid var(--lite-grey);
   padding: 10px;
   word-wrap: break-word;
   text-align: left;
+}
+
+.table-body__row:last-child .table-body__row__cell {
+  border-bottom: none;
 }
 
 .title {
@@ -98,23 +104,6 @@
   margin: 0;
 }
 
-.table-pagination {
-  width: 100%;
-  display: flex;
-  gap: 10%;
-  justify-content: center;
-  align-items: center;
-  margin: 10px auto;
-}
-
-.table-pagination__item-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.table-pagination__item__label {
-  margin-right: 10px;
-}
 
 .table__names__arrow {
   width: 20px;
@@ -134,13 +123,6 @@
 }
 
 @media (max-width: 560px) {
-  .table-pagination {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    margin-left: 20px;
-  }
-
   .btn {
     padding: 6px 10px;
   }
@@ -151,10 +133,6 @@
     align-items: flex-start;
     flex-direction: column;
     gap: 10px;
-  }
-
-  .table-pagination {
-    margin-left: 5px;
   }
 
   .table__names__input {
