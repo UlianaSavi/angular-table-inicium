@@ -61,7 +61,7 @@
   width: 100%;
   max-width: 500px;
   border-radius: 10px;
-  border: 1px solid var(--lite-grey);
+  border: 1px solid var(--very-lite-grey);
   padding: 10px;
 }
 
@@ -109,7 +109,7 @@
 .table__names {
   width: 100%;
   min-width: 200px;
-  border-bottom: 1px solid var(--lite-grey);
+  border-bottom: 1px solid var(--very-lite-grey);
   padding: 10px;
   word-wrap: break-word;
   text-align: left;

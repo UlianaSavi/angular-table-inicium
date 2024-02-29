@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalType } from 'src/app/types';
 
 @Component({
@@ -11,4 +12,11 @@ export class ModalAddEditComponent {
   @Input() close!: () => void;
 
   public modalTypes = ModalType;
+
+  public form = new FormGroup({
+    firstName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    phone: new FormControl('', Validators.required),
+  });
 }
