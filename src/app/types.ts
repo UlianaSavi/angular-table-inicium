@@ -20,3 +20,10 @@ export enum SortTypes {
   ASC = 'asc',
   DESC = 'desc',
 }
+
+export enum ModalType {
+  NONE = 'none',
+  DELETE = 'delete',
+  ADD = 'add',
+  EDIT = 'edit',
+}

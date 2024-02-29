@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-import { IData, IRowsToShow, SortTypes } from 'src/app/types';
-import { TableSettingsService } from '../../services/table-settings.service';
+import { IData, IRowsToShow, ModalType, SortTypes } from 'src/app/types';
+import { TableService } from '../../services/table.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SEARCH_MIN_LEN, START_TABLE_PAGE } from 'src/constants';
 import { BehaviorSubject, Subject, debounceTime, distinctUntilChanged } from 'rxjs';
@@ -12,7 +12,7 @@ import { BehaviorSubject, Subject, debounceTime, distinctUntilChanged } from 'rx
   styleUrls: ['./table.component.css']
 })
 export class TableComponent implements OnInit {
-  constructor (private apiService: ApiService, private tableSettingsServise: TableSettingsService) {}
+  constructor (private apiService: ApiService, private tableServise: TableService) {}
 
   public data$ = new BehaviorSubject<IData[]>([]);
   public initialData: IData[] = [];
@@ -38,6 +38,11 @@ export class TableComponent implements OnInit {
   private searchText$ = new Subject<string>();
   public currPage = START_TABLE_PAGE;
 
+  public selectedRows: number[] = [];
+
+  public modalTypes = ModalType;
+  public modalType: ModalType = ModalType.NONE;
+
   public ngOnInit() {
     this.apiService.getData().subscribe((data) => {
       this.data$.next(data.users);
@@ -51,7 +56,7 @@ export class TableComponent implements OnInit {
       });
     });
 
-    this.tableSettingsServise.shownColumns$.subscribe((value) => {
+    this.tableServise.shownColumns$.subscribe((value) => {
       this.shownColumnNames = value;
       if (this.shownColumnNames) {
         this.shownColumnNamesMaxLen = Object.keys(this.shownColumnNames).length;
@@ -72,7 +77,7 @@ export class TableComponent implements OnInit {
         this.firstFiltering = false;
       }
       if (this.dataWithoutFilter.length) {
-        const res = this.tableSettingsServise.filter(this.dataWithoutFilter, searchStr);
+        const res = this.tableServise.filter(this.dataWithoutFilter, searchStr);
         if (res) {
           this.data$.next(res);
         } else {
@@ -106,10 +111,10 @@ export class TableComponent implements OnInit {
     this.currSortType = type;
     if (this.data$.value && this.dataWithoutSort.length) {
       if (type === this.sortTypes.DEFAULT) {
-        this.data$.next(structuredClone(this.tableSettingsServise.sort(this.dataWithoutSort, name, type)));
+        this.data$.next(structuredClone(this.tableServise.sort(this.dataWithoutSort, name, type)));
         return;
       }
-      this.tableSettingsServise.sort(this.data$.value, name, type);
+      this.tableServise.sort(this.data$.value, name, type);
     }
   }
 
@@ -117,5 +122,21 @@ export class TableComponent implements OnInit {
     if (this.searchInput.valid) {
       this.searchText$.next(this.searchInput.value || '');
     }
+  }
+
+  public select(i: number) {
+    if(this.selectedRows.includes(i)) {
+      this.selectedRows = this.selectedRows.filter((item) => item !== i);
+      return;
+    }
+    this.selectedRows.push(i);
+  }
+
+  public openModal(type: ModalType, event?: Event) {
+    if (event) {
+      event.preventDefault();
+    }
+    this.modalType = type;
+    console.log(this.modalType);
   }
 }

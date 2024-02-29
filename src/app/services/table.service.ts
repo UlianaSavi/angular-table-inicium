@@ -5,7 +5,7 @@ import { BehaviorSubject } from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class TableSettingsService {
+export class TableService {
   // TODO: сделать чтобы последовательность в таблице была как тут у колонок
   private shownColumns: IRowsToShow = {
     name:	true,

@@ -2,13 +2,16 @@
   --white-simple: #ffffff;
   --transparent: transparent;
   --grey: #333030;
+  --black: #000000;
   --lite-grey: rgb(237 237 237);
   --dark-grey: #1f2327;
   --box-shadow: 1px 2px 8px 2px rgba(34, 60, 80, 0.12);
   --blue-default: rgba(47, 127, 213, 1);
   --blue-hover: rgba(60, 124, 248, 1); /* btn hover */
   --blue-dark: rgba(25, 78, 182, 1); /* btn pressed */
+  --blue-dark-for-icons: rgba(48, 72, 121, 1);
   --main-background: rgba(233, 243, 255, 1);
+  --ceil-hover: rgba(143, 175, 255, 0.103);
 }
 
 @font-face {
@@ -85,8 +88,61 @@ body {
   transition: all .2s;
 }
 
+.btn.btn-none {
+  background: var(--transparent);
+  border: none;
+  border-radius: 0;
+}
+
+.btn.icon {
+  position: relative;
+  width: 100%;
+  max-width: 45px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.btn.icon:hover {
+  background: var(--white-simple);
+}
+
+.btn.icon:not(.icon-disabled):hover::before {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--ceil-hover);
+  transition: all .2s;
+}
+
+.icon svg {
+  cursor: pointer;
+  fill: var(--blue-dark-for-icons);
+}
+
+.btn.icon-disabled {
+  cursor: not-allowed;
+}
+
+.icon-disabled svg {
+  cursor: not-allowed;
+  fill: var(--lite-grey);
+}
+
 .i {
   font-style: normal;
+}
+
+.i:hover {
+  color: var(--blue-default);
+  text-decoration: underline;
+}
+
+.link {
+  color: var(--black);
+  text-decoration: none;
 }
 
 .btn-blue {
@@ -99,7 +155,6 @@ body {
 
 .btn:hover {
   color: var(--white-simple);
-  background: var(--dark-grey);
   transition: all .2s;
 }
 
