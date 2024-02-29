@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { IData, IRowsToShow, SortTypes } from "../types";
+import { IData, IRowsToShow, ModalType, SortTypes } from "../types";
 import { BehaviorSubject } from "rxjs";
 
 @Injectable({
@@ -14,6 +14,8 @@ export class TableService {
     phone:	true,
   };
   public shownColumns$ = new BehaviorSubject<IRowsToShow>(this.shownColumns); // if we need to hide some of the colums - change shownColumns
+
+  public modalType$ = new BehaviorSubject<ModalType>(ModalType.NONE);
 
   public sort(data: IData[], field: string, type: SortTypes): IData[] {
     if (type === SortTypes.DEFAULT) {
@@ -39,5 +41,28 @@ export class TableService {
       return test;
     });
     return res;
+  }
+
+  public openTableModal(type: ModalType, event?: Event) {
+    if (event) {
+      event.preventDefault();
+    }
+    this.modalType$.next(type);
+  }
+
+  public closeTableModal() {
+    this.modalType$.next(ModalType.NONE);
+  }
+
+  public add(item: IData) {
+    console.log(item);
+  }
+
+  public edit(item: IData) {
+    console.log(item);
+  }
+
+  public delete(ids: number[]) {
+    console.log(ids);
   }
 }

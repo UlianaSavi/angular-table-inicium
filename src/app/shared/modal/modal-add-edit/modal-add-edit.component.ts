@@ -8,6 +8,7 @@ import { ModalType } from 'src/app/types';
 })
 export class ModalAddEditComponent {
   @Input() type: ModalType = ModalType.NONE;
+  @Input() close!: () => void;
 
   public modalTypes = ModalType;
 }

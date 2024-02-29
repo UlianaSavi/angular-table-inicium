@@ -1,5 +1,5 @@
-<app-table-modal-delete *ngIf="type === modalTypes.DELETE"></app-table-modal-delete>
+<app-table-modal-delete *ngIf="modalType === modalTypes.DELETE" [close]="close"></app-table-modal-delete>
 <app-table-modal-add-edit
-  *ngIf="type !== modalTypes.DELETE && type !== modalTypes.NONE"
-  [type]="type">
+  *ngIf="modalType !== modalTypes.DELETE && modalType !== modalTypes.NONE"
+  [type]="modalType" [close]="close">
 </app-table-modal-add-edit>

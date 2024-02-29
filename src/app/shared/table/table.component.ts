@@ -41,7 +41,6 @@ export class TableComponent implements OnInit {
   public selectedRows: number[] = [];
 
   public modalTypes = ModalType;
-  public modalType: ModalType = ModalType.NONE;
 
   public ngOnInit() {
     this.apiService.getData().subscribe((data) => {
@@ -133,10 +132,6 @@ export class TableComponent implements OnInit {
   }
 
   public openModal(type: ModalType, event?: Event) {
-    if (event) {
-      event.preventDefault();
-    }
-    this.modalType = type;
-    console.log(this.modalType);
+    this.tableServise.openTableModal(type, event)
   }
 }

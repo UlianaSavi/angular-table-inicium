@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-table-modal-delete',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./modal-delete.component.css']
 })
 export class ModalDeleteComponent {
-
+  @Input() close!: () => void;
 }
