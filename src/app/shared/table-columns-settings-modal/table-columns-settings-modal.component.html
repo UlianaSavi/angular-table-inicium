@@ -1,0 +1,10 @@
+<div class="names">
+  <div class="names__item" *ngFor="let name of shownColumnNames | keyvalue">
+    <input
+      class="names__item__checkbox"
+      type="checkbox" [id]="name.key"
+      (change)="updateNamesList(name.key, $event)"
+      [checked]="name.value">
+    <label class="names__item__label" [for]="name.key">{{ name.key }}</label>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="table container">
+  <div class="table-header">
+    <h4 class="title">Table</h4>
+    <input
+      class="table__names__input"
+      type="text"
+      (input)="search()"
+      [formControl]="searchInput" placeholder="Search...">
+    <button
+      (click)="openColumnsSettingsModal()"
+      class="btn table-header__open-modal"
+      type="text">{{ shownColumnNamesLen }} of {{ shownColumnNamesMaxLen }} columns
+      <b [ngClass]="{'open': isModalSettingsOpen}"
+        class="table-header__open-modal__arr">&nbsp;&#5169;
+      </b>
+    </button>
+  </div>
+  <div class="table-body">
+    <div class="table__names-wrap">
+      <div class="table__names" *ngFor="let name of shownColumnNames | keyvalue">
+        <div class="table__names__inner">
+          <button class="table__names__text" (click)="sort(name.key)" *ngIf="name.value">{{ name.key | uppercase }}</button>
+          <div class="table__names__arrow" [ngClass]="currSortType">
+            <div *ngIf="currSortColumn === name.key">&nbsp;&#5169;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-body__row" *ngFor="let item of data$.value | paginate: {
+      itemsPerPage: pageGoForm.controls['itemsPerPage'].value, currentPage: currPage }">
+      <div class="table-body__row__cell" *ngFor="let row of item | keyvalue">
+        <i>{{ row.value }}</i>
+      </div>
+    </div>
+  </div>
+  <div class="table-pagination">
+    <form [formGroup]="pageGoForm" class="table-pagination__item">
+      <label for="perPage" class="table-pagination__item__label">Items per page:</label>
+      <input formControlName="itemsPerPage" id="perPage" value="1" type="number" min="1" [max]="data$.value.length || 1">
+    </form>
+    <pagination-controls (pageChange)="currPage = $event"></pagination-controls>
+  </div>
+  <app-table-columns-settings-modal [ngClass]="{'open': isModalSettingsOpen}"></app-table-columns-settings-modal>
+</div>
