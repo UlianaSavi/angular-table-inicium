@@ -1,4 +1,4 @@
-export const FAKE_URL = 'assets/mock/fake-data.json';
+export const API_URL = 'https://test-data.directorix.cloud/task1';
 
 export const START_TABLE_PAGE = 1;
 

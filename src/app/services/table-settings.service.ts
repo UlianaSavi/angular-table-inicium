@@ -7,41 +7,12 @@ import { BehaviorSubject } from "rxjs";
 })
 export class TableSettingsService {
   private shownColumns: IRowsToShow = {
-    isActive: true,
-    balance: true,
-    picture: true,
-    age: true,
-    name: true,
-    company: true,
-    email: true,
-    address: true,
-    tags: true,
-    favoriteFruit: true,
+    name:	true,
+    surname:	true,
+    email:	true,
+    phone:	true,
   };
-  public shownColumns$ = new BehaviorSubject<IRowsToShow>(this.shownColumns);
-
-  public setShownColumns(newShownColumnsArr: IRowsToShow) {
-    this.shownColumns$.next(newShownColumnsArr);
-  }
-
-  public filterByShownConfig(data: IData[]): IData[] {
-    const dataDeepCopy = structuredClone(data);
-    const showNamesArr: string[] = [];
-    for (const [key, value] of Object.entries(this.shownColumns$.value)) {
-      if (value) {
-        showNamesArr.push(key);
-      }
-    }
-
-    dataDeepCopy.map((item) => {
-      for (const [key] of Object.entries(item)) {
-        if (!showNamesArr.includes(key)) {
-          delete item[key as keyof IData];
-        }
-      }
-    })
-    return dataDeepCopy;
-  }
+  public shownColumns$ = new BehaviorSubject<IRowsToShow>(this.shownColumns); // if we need to hide some of the colums - change shownColumns
 
   public sort(data: IData[], field: string, type: SortTypes): IData[] {
     if (type === SortTypes.DEFAULT) {

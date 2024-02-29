@@ -37,11 +37,10 @@ export class TableComponent implements OnInit {
   public searchInput = new FormControl('', [Validators.minLength(SEARCH_MIN_LEN)]);
   private searchText$ = new Subject<string>();
   public currPage = START_TABLE_PAGE;
-  public isModalSettingsOpen = false;
 
   public ngOnInit() {
     this.apiService.getData().subscribe((data) => {
-      this.data$.next(this.tableSettingsServise.filterByShownConfig(data));
+      this.data$.next(data.users);
       this.initialData = structuredClone(this.data$.value);
       this.dataWithoutSort = structuredClone(this.data$.value);
 
@@ -59,7 +58,7 @@ export class TableComponent implements OnInit {
         this.shownColumnNamesLen = Object.values(this.shownColumnNames).filter((item: boolean) => item).length;
       }
       if (this.initialData.length) {
-        this.data$.next(this.tableSettingsServise.filterByShownConfig(this.initialData));
+        this.data$.next(this.initialData);
         this.resetTable();
       }
     });
@@ -88,10 +87,6 @@ export class TableComponent implements OnInit {
     this.currSortType = this.sortTypes.DEFAULT;
     this.searchInput.setValue('');
     this.searchText$.next('');
-  }
-
-  public openColumnsSettingsModal() {
-    this.isModalSettingsOpen = !this.isModalSettingsOpen;
   }
 
   public sort(name: string) {

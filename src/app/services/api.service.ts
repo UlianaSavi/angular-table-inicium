@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IData } from '../types';
-import { FAKE_URL } from 'src/constants';
+import { IData, IResponse } from '../types';
+import { API_URL } from 'src/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { FAKE_URL } from 'src/constants';
 export class ApiService {
   constructor(private http: HttpClient) { }
 
-  public getData(): Observable<IData[]> {
-    return this.http.get<IData[]>(FAKE_URL);
+  public getData(): Observable<IResponse> {
+    return this.http.get<IResponse>(API_URL);
   }
 }

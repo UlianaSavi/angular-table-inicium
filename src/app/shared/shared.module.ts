@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableComponent } from './table/table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TableColumnsSettingsModalComponent } from './table-columns-settings-modal/table-columns-settings-modal.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 
@@ -12,7 +11,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     TableComponent,
-    TableColumnsSettingsModalComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +23,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
   providers: [],
   exports: [
     TableComponent,
-    TableColumnsSettingsModalComponent
   ],
 })
 export class SharedModule { }

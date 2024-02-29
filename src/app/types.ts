@@ -1,30 +1,18 @@
 export interface IData {
-    _id: string,
-    isActive: boolean,
-    balance: string,
-    picture: string,
-    age: number,
-    name: {
-        first: string,
-        last: string
-    },
-    company: string,
-    email: string,
-    address: string,
-    tags: string[],
-    favoriteFruit: string
+  name:	string;
+  surname:	string;
+  email:	string;
+  phone:	string;
+}
+
+export type IResponse = {
+  users: IData[]
 }
 export interface IRowsToShow {
-    isActive: boolean,
-    balance: boolean,
-    picture: boolean,
-    age: boolean,
-    name: boolean,
-    company: boolean,
-    email: boolean,
-    address: boolean,
-    tags: boolean,
-    favoriteFruit: boolean
+  name:	boolean;
+  surname:	boolean;
+  email:	boolean;
+  phone:	boolean;
 }
 
 export enum SortTypes {

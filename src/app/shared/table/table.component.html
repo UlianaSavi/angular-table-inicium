@@ -6,14 +6,6 @@
       type="text"
       (input)="search()"
       [formControl]="searchInput" placeholder="Search...">
-    <button
-      (click)="openColumnsSettingsModal()"
-      class="btn table-header__open-modal"
-      type="text">{{ shownColumnNamesLen }} of {{ shownColumnNamesMaxLen }} columns
-      <b [ngClass]="{'open': isModalSettingsOpen}"
-        class="table-header__open-modal__arr">&nbsp;&#5169;
-      </b>
-    </button>
   </div>
   <div class="table-body">
     <div class="table__names-wrap">
@@ -40,5 +32,4 @@
     </form>
     <pagination-controls (pageChange)="currPage = $event"></pagination-controls>
   </div>
-  <app-table-columns-settings-modal [ngClass]="{'open': isModalSettingsOpen}"></app-table-columns-settings-modal>
 </div>
