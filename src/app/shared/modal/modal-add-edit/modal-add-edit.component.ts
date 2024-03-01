@@ -18,9 +18,6 @@ export class ModalAddEditComponent implements OnInit {
 
   public modalTypes = ModalType;
 
-  // TODO: 6) Добавь пометку в readme про SCSS (почему у тебя css и примеры твоего кода на SCSS) + поментку, как получить исх. данные (очистить локалсторедж)
-  // TODO: 7) Адаптив до 375px
-
   public ngOnInit() {
     if (this.type === ModalType.EDIT) {
       this.form.setValue({
