@@ -14,8 +14,6 @@ import { validate as isValidUUID } from 'uuid';
 export class TableComponent implements OnInit {
   constructor (public tableServise: TableService) {}
 
-  private firstFiltering = true;
-
   public currSortType = SortTypes.DEFAULT;
   public currSortColumn: string | null = null;
   public sortTypes = SortTypes;
@@ -26,10 +24,12 @@ export class TableComponent implements OnInit {
   public shownColumnNamesMaxLen = 0;
   public shownColumnNamesLen = 0;
 
+  public modalTypes = ModalType;
+
   public searchInput = new FormControl('', [Validators.minLength(SEARCH_MIN_LEN)]);
   private searchText$ = new Subject<string>();
 
-  public modalTypes = ModalType;
+  private firstFiltering = true;
 
   public ngOnInit() {
     this.tableServise.getData();
@@ -102,7 +102,7 @@ export class TableComponent implements OnInit {
     }
   }
 
-  public select(i: number) {
+  public select(i: string) {
     this.tableServise.select(i);
   }
 

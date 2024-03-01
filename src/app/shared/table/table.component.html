@@ -36,7 +36,7 @@
     </div>
     <div class="table-body__row" *ngFor="let item of tableServise.data$.value; let i = index">
       <button class="btn btn-none table-body__row__cell checkbox-cell">
-        <input (click)="select(i)" type="checkbox" name="checkbox" id="{{ 'checkbox-' + i }}">
+        <input (click)="select(item.id)" type="checkbox" name="checkbox" id="{{ 'checkbox-' + i }}">
       </button>
       <ng-container *ngFor="let row of item | keyvalue">
         <ng-container *ngIf="!validate(row.value)">

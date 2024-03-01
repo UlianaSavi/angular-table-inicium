@@ -14,7 +14,7 @@ export class TableService {
   public initialData: IData[] = [];
   public dataWithoutSort: IData[] = [];
   public dataWithoutFilter: IData[] = [];
-  public selectedRows: number[] = [];
+  public selectedRows: string[] = [];
 
   // TODO: сделать чтобы последовательность в таблице была как тут у колонок
   private shownColumns: IRowsToShow = {
@@ -38,7 +38,7 @@ export class TableService {
     });
   }
 
-  public select(i: number) {
+  public select(i: string) {
     if(this.selectedRows.includes(i)) {
       this.selectedRows = this.selectedRows.filter((item) => item !== i);
       return;
@@ -93,18 +93,14 @@ export class TableService {
 
   public delete() {
     const dataCopy: IData[] = structuredClone(this.data$.value);
-    this.selectedRows.forEach((id) => {
-      const candidate = dataCopy.at(id);
-      if (candidate) {
-        const candidateIdx = dataCopy.findIndex((item) => {
-          return item.id === candidate.id;
-        });
-        dataCopy.splice(candidateIdx, 1);
-      }
+    this.selectedRows.forEach((id: string) => {
+      const candidateIdx = dataCopy.findIndex((item) => {
+        return item.id === id;
+      });
+      dataCopy.splice(candidateIdx, 1);
     });
-
-    console.log('test2', dataCopy);
-    // this.selectedRows = [];
-    // this.closeTableModal();
+    this.data$.next(dataCopy);
+    this.selectedRows = [];
+    this.closeTableModal();
   }
 }
