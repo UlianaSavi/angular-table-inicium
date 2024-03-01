@@ -33,3 +33,8 @@
   border: 1px solid var(--grey);
   color: var(--grey);
 }
+
+.input-failed {
+  border: 1px solid var(--red);
+  color: var(--grey);
+}

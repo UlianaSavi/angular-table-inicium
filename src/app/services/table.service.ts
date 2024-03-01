@@ -37,11 +37,9 @@ export class TableService {
   public select(i: number) {
     if(this.selectedRows.includes(i)) {
       this.selectedRows = this.selectedRows.filter((item) => item !== i);
-      console.log(this.selectedRows);
       return;
     }
     this.selectedRows.push(i);
-    console.log(this.selectedRows);
   }
 
   public sort(data: IData[], field: string, type: SortTypes): IData[] {

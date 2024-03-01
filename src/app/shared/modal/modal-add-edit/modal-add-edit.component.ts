@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalType } from 'src/app/types';
+import { MIN_INPUT_LEN, RUS_PHONE_REGEXP } from 'src/constants';
 
 @Component({
   selector: 'app-table-modal-add-edit',
@@ -23,9 +24,9 @@ export class ModalAddEditComponent {
   // TODO: 7) Адаптив до 375px
 
   public form = new FormGroup({
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
+    firstName: new FormControl('', [Validators.required, Validators.minLength(MIN_INPUT_LEN)]),
+    lastName: new FormControl('', [Validators.required, Validators.minLength(MIN_INPUT_LEN)]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl('', Validators.required),
+    phone: new FormControl('', [Validators.required, Validators.pattern(RUS_PHONE_REGEXP)]),
   });
 }

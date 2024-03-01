@@ -6,13 +6,22 @@
     Editing
   </h2>
   <form class="modal-add-edit__form" action="" [formGroup]="form">
-    <input [ngClass]="{'input-filled': form.controls.firstName.valid}" class="modal-add-edit__form__input"
+    <input
+      [ngClass]="{'input-filled': form.controls.firstName.valid, 'input-failed': form.controls.firstName.invalid && form.controls.firstName.touched}"
+      class="modal-add-edit__form__input"
+      minlength="2"
       id="first-name" type="text" formControlName="firstName" placeholder="Your firstName">
-    <input [ngClass]="{'input-filled': form.controls.lastName.valid}" class="modal-add-edit__form__input" id="last-name"
+    <input
+      [ngClass]="{'input-filled': form.controls.lastName.valid, 'input-failed': form.controls.lastName.invalid && form.controls.lastName.touched}"
+      class="modal-add-edit__form__input" id="last-name"
       type="text" formControlName="lastName" placeholder="Your lastName">
-    <input [ngClass]="{'input-filled': form.controls.email.valid}" class="modal-add-edit__form__input" id="email"
+    <input
+      [ngClass]="{'input-filled': form.controls.email.valid, 'input-failed': form.controls.email.invalid && form.controls.email.touched}"
+      class="modal-add-edit__form__input" id="email"
       type="email" formControlName="email" placeholder="Your email">
-    <input [ngClass]="{'input-filled': form.controls.phone.valid}" class="modal-add-edit__form__input" id="phone"
+    <input
+      [ngClass]="{'input-filled': form.controls.phone.valid, 'input-failed': form.controls.phone.invalid && form.controls.phone.touched}"
+      class="modal-add-edit__form__input" id="phone"
       type="text" formControlName="phone" placeholder="Your phone">
   </form>
   <div class="modal-add-edit__buttons">
