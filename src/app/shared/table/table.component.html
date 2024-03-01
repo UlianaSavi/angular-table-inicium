@@ -41,7 +41,7 @@
       <ng-container *ngFor="let row of item | keyvalue">
         <ng-container *ngIf="!validate(row.value)">
           <div [id]="i" class="table-body__row__cell">
-            <a class="link" (click)="openModal(modalTypes.EDIT, $event)" href="">
+            <a class="link" (click)="openModal(modalTypes.EDIT, $event, item.id)" href="">
               <i class="i">{{ row.value }}</i>
             </a>
           </div>

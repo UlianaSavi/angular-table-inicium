@@ -55,7 +55,7 @@ export class TableComponent implements OnInit {
         this.firstFiltering = false;
       }
       if (this.tableServise.dataWithoutFilter.length) {
-        const res = this.tableServise.filter(this.tableServise.dataWithoutFilter, searchStr);
+        const res = this.tableServise.filter(this.tableServise.dataWithoutFilter, searchStr); // filtering
         if (res) {
           this.tableServise.data$.next(res);
         } else {
@@ -106,7 +106,10 @@ export class TableComponent implements OnInit {
     this.tableServise.select(i);
   }
 
-  public openModal(type: ModalType, event?: Event) {
+  public openModal(type: ModalType, event?: Event, itemForEditId?: string) {
+    if (type === ModalType.EDIT) {
+      this.tableServise.openTableModal(type, event, itemForEditId)
+    }
     this.tableServise.openTableModal(type, event)
   }
 }

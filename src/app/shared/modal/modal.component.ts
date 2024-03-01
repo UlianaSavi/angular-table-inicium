@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TableService } from 'src/app/services/table.service';
-import { ModalType } from 'src/app/types';
+import { IData, ModalType } from 'src/app/types';
 
 @Component({
   selector: 'app-table-modal',
@@ -12,10 +12,14 @@ export class TableModalComponent implements OnInit {
 
   public modalTypes = ModalType;
   public modalType = this.modalTypes.NONE;
+  public itemForEdit: IData | null = null;
 
   public ngOnInit() {
     this.tableServise.modalType$.subscribe((val) => {
       this.modalType = val;
+    });
+    this.tableServise.itemForEdit$.subscribe((val) => {
+      this.itemForEdit = val;
     });
   }
 
@@ -25,5 +29,13 @@ export class TableModalComponent implements OnInit {
 
   public delete = () => {
     this.tableServise.delete();
+  }
+
+  public add = (newItem: IData) => {
+    this.tableServise.add(newItem);
+  }
+
+  public edit = (newItem: IData) => {
+    this.tableServise.edit(newItem);
   }
 }

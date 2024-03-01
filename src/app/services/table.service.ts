@@ -26,8 +26,17 @@ export class TableService {
   public shownColumns$ = new BehaviorSubject<IRowsToShow>(this.shownColumns); // if we need to hide some of the colums - change shownColumns
 
   public modalType$ = new BehaviorSubject<ModalType>(ModalType.NONE);
+  public itemForEdit$ = new BehaviorSubject<IData | null>(null);
 
   public getData() {
+    const dataFromLocalStorage: IData[] | null = JSON.parse(localStorage.getItem('data') || 'null') || null;
+    console.log(dataFromLocalStorage);
+    if (dataFromLocalStorage) {
+      this.data$.next(dataFromLocalStorage);
+      this.initialData = structuredClone(dataFromLocalStorage);
+      this.dataWithoutSort = structuredClone(dataFromLocalStorage);
+      return;
+    }
     this.apiService.getData().subscribe((data) => {
       data.users.forEach((item) => {
         item.id = uuidv4()
@@ -35,6 +44,7 @@ export class TableService {
       this.data$.next(data.users);
       this.initialData = structuredClone(this.data$.value);
       this.dataWithoutSort = structuredClone(this.data$.value);
+      localStorage.setItem('data', JSON.stringify(this.data$.value));
     });
   }
 
@@ -72,9 +82,12 @@ export class TableService {
     return res;
   }
 
-  public openTableModal(type: ModalType, event?: Event) {
+  public openTableModal(type: ModalType, event?: Event, itemForEditId?: string) {
     if (event) {
       event.preventDefault();
+    }
+    if (itemForEditId) {
+      this.itemForEdit$.next(this.data$.value.find((item) => item.id === itemForEditId) || null);
     }
     this.modalType$.next(type);
   }
@@ -84,11 +97,20 @@ export class TableService {
   }
 
   public add(item: IData) {
-    console.log(item);
+    console.log('add', item);
+    this.data$.next(this.data$.getValue().concat(item));
+    localStorage.setItem('data', JSON.stringify(this.data$.value));
+    this.closeTableModal();
+    this.updateDataArrays();
   }
 
   public edit(item: IData) {
-    console.log(item);
+    const arr = this.data$.value.filter((itemInArr) => itemInArr.id !== item.id);
+    arr.push(item);
+    this.data$.next(arr);
+    localStorage.setItem('data', JSON.stringify(this.data$.value));
+    this.closeTableModal();
+    this.updateDataArrays();
   }
 
   public delete() {
@@ -100,7 +122,15 @@ export class TableService {
       dataCopy.splice(candidateIdx, 1);
     });
     this.data$.next(dataCopy);
+    localStorage.setItem('data', JSON.stringify(this.data$.value));
     this.selectedRows = [];
     this.closeTableModal();
+    this.updateDataArrays();
+  }
+
+  private updateDataArrays() {
+    this.initialData = structuredClone(this.data$.value);
+    this.dataWithoutSort = structuredClone(this.data$.value);
+    this.dataWithoutFilter = structuredClone(this.data$.value);
   }
 }
