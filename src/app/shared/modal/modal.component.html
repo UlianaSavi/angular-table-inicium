@@ -1,8 +1,8 @@
 <div class="modal-fade" *ngIf="modalType !== modalTypes.NONE">
   <div class="modal">
-    <app-table-modal-delete *ngIf="modalType === modalTypes.DELETE" [close]="close"></app-table-modal-delete>
-    <app-table-modal-add-edit *ngIf="modalType !== modalTypes.DELETE"
-      [type]="modalType" [close]="close">
+    <app-table-modal-delete *ngIf="modalType === modalTypes.DELETE" [close]="close" [delete]="delete"
+      [deleteNum]="tableServise.selectedRows.length"></app-table-modal-delete>
+    <app-table-modal-add-edit *ngIf="modalType !== modalTypes.DELETE" [type]="modalType" [close]="close">
     </app-table-modal-add-edit>
   </div>
 </div>

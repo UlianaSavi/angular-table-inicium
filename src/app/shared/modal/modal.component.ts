@@ -8,7 +8,7 @@ import { ModalType } from 'src/app/types';
   styleUrls: ['./modal.component.css']
 })
 export class TableModalComponent implements OnInit {
-  constructor (private tableServise: TableService) {}
+  constructor (public tableServise: TableService) {}
 
   public modalTypes = ModalType;
   public modalType = this.modalTypes.NONE;
@@ -21,5 +21,9 @@ export class TableModalComponent implements OnInit {
 
   public close = () => {
     this.tableServise.closeTableModal();
+  }
+
+  public delete = () => {
+    this.tableServise.delete();
   }
 }

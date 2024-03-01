@@ -36,13 +36,17 @@
     </div>
     <div class="table-body__row" *ngFor="let item of tableServise.data$.value; let i = index">
       <button class="btn btn-none table-body__row__cell checkbox-cell">
-        <input (click)="select(i)" type="checkbox" name="checkbox" id="checkbox">
+        <input (click)="select(i)" type="checkbox" name="checkbox" id="{{ 'checkbox-' + i }}">
       </button>
-      <div [id]="i" class="table-body__row__cell" *ngFor="let row of item | keyvalue">
-        <a class="link" (click)="openModal(modalTypes.EDIT, $event)" href="">
-          <i class="i">{{ row.value }}</i>
-        </a>
-      </div>
+      <ng-container *ngFor="let row of item | keyvalue">
+        <ng-container *ngIf="!validate(row.value)">
+          <div [id]="i" class="table-body__row__cell">
+            <a class="link" (click)="openModal(modalTypes.EDIT, $event)" href="">
+              <i class="i">{{ row.value }}</i>
+            </a>
+          </div>
+        </ng-container>
+      </ng-container>
     </div>
   </div>
 </div>

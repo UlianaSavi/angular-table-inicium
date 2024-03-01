@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { IData, IRowsToShow, ModalType, SortTypes } from "../types";
 import { BehaviorSubject } from "rxjs";
 import { ApiService } from "./api.service";
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,9 @@ export class TableService {
 
   public getData() {
     this.apiService.getData().subscribe((data) => {
+      data.users.forEach((item) => {
+        item.id = uuidv4()
+      }); // add ids for every item
       this.data$.next(data.users);
       this.initialData = structuredClone(this.data$.value);
       this.dataWithoutSort = structuredClone(this.data$.value);
@@ -87,7 +91,20 @@ export class TableService {
     console.log(item);
   }
 
-  public delete(ids: number[]) {
-    console.log(ids);
+  public delete() {
+    const dataCopy: IData[] = structuredClone(this.data$.value);
+    this.selectedRows.forEach((id) => {
+      const candidate = dataCopy.at(id);
+      if (candidate) {
+        const candidateIdx = dataCopy.findIndex((item) => {
+          return item.id === candidate.id;
+        });
+        dataCopy.splice(candidateIdx, 1);
+      }
+    });
+
+    console.log('test2', dataCopy);
+    // this.selectedRows = [];
+    // this.closeTableModal();
   }
 }

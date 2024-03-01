@@ -7,4 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class ModalDeleteComponent {
   @Input() close!: () => void;
+  @Input() delete!: () => void;
+  @Input() deleteNum = 0;
 }

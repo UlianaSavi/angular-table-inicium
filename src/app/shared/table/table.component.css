@@ -103,6 +103,8 @@
   min-width: 18px;
   max-width: 18px;
   padding-left: 20px;
+  border-radius: 0;
+  cursor: default;
 }
 
 .table-body__row__cell,

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { IRowsToShow, ModalType, SortTypes } from 'src/app/types';
 import { TableService } from '../../services/table.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SEARCH_MIN_LEN, START_TABLE_PAGE } from 'src/constants';
+import { FormControl, Validators } from '@angular/forms';
+import { SEARCH_MIN_LEN } from 'src/constants';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { validate as isValidUUID } from 'uuid';
 
 @Component({
   selector: 'app-table',
@@ -19,16 +20,12 @@ export class TableComponent implements OnInit {
   public currSortColumn: string | null = null;
   public sortTypes = SortTypes;
 
+  public validate = isValidUUID;
+
   public shownColumnNames: IRowsToShow | null = null;
   public shownColumnNamesMaxLen = 0;
   public shownColumnNamesLen = 0;
 
-  public pageGoForm: FormGroup = new FormGroup({
-    itemsPerPage: new FormControl(START_TABLE_PAGE, [
-        Validators.max(this.tableServise.data$.value?.length || START_TABLE_PAGE),
-        Validators.min(START_TABLE_PAGE)
-      ]),
-  });
   public searchInput = new FormControl('', [Validators.minLength(SEARCH_MIN_LEN)]);
   private searchText$ = new Subject<string>();
 
@@ -36,11 +33,6 @@ export class TableComponent implements OnInit {
 
   public ngOnInit() {
     this.tableServise.getData();
-    this.tableServise.data$.subscribe((data) => {
-      this.pageGoForm.patchValue({
-        itemsPerPage: data?.length || START_TABLE_PAGE,
-      });
-    });
 
     this.tableServise.shownColumns$.subscribe((value) => {
       this.shownColumnNames = value;
