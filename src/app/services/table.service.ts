@@ -1,11 +1,20 @@
 import { Injectable } from "@angular/core";
 import { IData, IRowsToShow, ModalType, SortTypes } from "../types";
 import { BehaviorSubject } from "rxjs";
+import { ApiService } from "./api.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TableService {
+  constructor (private apiService: ApiService) {}
+
+  public data$ = new BehaviorSubject<IData[]>([]);
+  public initialData: IData[] = [];
+  public dataWithoutSort: IData[] = [];
+  public dataWithoutFilter: IData[] = [];
+  public selectedRows: number[] = [];
+
   // TODO: сделать чтобы последовательность в таблице была как тут у колонок
   private shownColumns: IRowsToShow = {
     name:	true,
@@ -16,6 +25,24 @@ export class TableService {
   public shownColumns$ = new BehaviorSubject<IRowsToShow>(this.shownColumns); // if we need to hide some of the colums - change shownColumns
 
   public modalType$ = new BehaviorSubject<ModalType>(ModalType.NONE);
+
+  public getData() {
+    this.apiService.getData().subscribe((data) => {
+      this.data$.next(data.users);
+      this.initialData = structuredClone(this.data$.value);
+      this.dataWithoutSort = structuredClone(this.data$.value);
+    });
+  }
+
+  public select(i: number) {
+    if(this.selectedRows.includes(i)) {
+      this.selectedRows = this.selectedRows.filter((item) => item !== i);
+      console.log(this.selectedRows);
+      return;
+    }
+    this.selectedRows.push(i);
+    console.log(this.selectedRows);
+  }
 
   public sort(data: IData[], field: string, type: SortTypes): IData[] {
     if (type === SortTypes.DEFAULT) {

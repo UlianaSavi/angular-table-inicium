@@ -16,7 +16,6 @@ export class TableModalComponent implements OnInit {
   public ngOnInit() {
     this.tableServise.modalType$.subscribe((val) => {
       this.modalType = val;
-      console.log(1, this.modalType);
     });
   }
 
