@@ -16,7 +16,6 @@ export class TableService {
   public dataWithoutFilter: IData[] = [];
   public selectedRows: string[] = [];
 
-  // TODO: сделать чтобы последовательность в таблице была как тут у колонок
   private shownColumns: IRowsToShow = {
     name:	true,
     surname:	true,
@@ -30,7 +29,6 @@ export class TableService {
 
   public getData() {
     const dataFromLocalStorage: IData[] | null = JSON.parse(localStorage.getItem('data') || 'null') || null;
-    console.log(dataFromLocalStorage);
     if (dataFromLocalStorage) {
       this.data$.next(dataFromLocalStorage);
       this.initialData = structuredClone(dataFromLocalStorage);
@@ -97,7 +95,6 @@ export class TableService {
   }
 
   public add(item: IData) {
-    console.log('add', item);
     this.data$.next(this.data$.getValue().concat(item));
     localStorage.setItem('data', JSON.stringify(this.data$.value));
     this.closeTableModal();

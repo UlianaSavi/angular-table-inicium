@@ -1,9 +1,0 @@
-.modal-delete__buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.modal-delete__subtitle {
-  margin-bottom: 50px;
-}

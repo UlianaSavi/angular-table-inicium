@@ -1,0 +1,45 @@
+@import '/src/variables';
+
+.modal-add-edit {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-bottom: 30px;
+
+    &__input {
+      height: 22px;
+      width: 100%;
+      max-width: 338px;
+      padding: 15px;
+      border: 1px solid $lite-grey;
+      border-radius: 5px;
+
+      &::placeholder {
+        color: $lite-grey;
+      }
+
+      &:focus-visible {
+        border: 1px solid $blue-default;
+        outline: none;
+      }
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+}
+
+.modal-add-edit
+.input-filled {
+  border: 1px solid $grey;
+  color: $grey;
+}
+
+.input-failed {
+  border: 1px solid $red;
+  color: $grey;
+}

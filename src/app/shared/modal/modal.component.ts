@@ -5,7 +5,7 @@ import { IData, ModalType } from 'src/app/types';
 @Component({
   selector: 'app-table-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.css']
+  styleUrls: ['./modal.component.scss']
 })
 export class TableModalComponent implements OnInit {
   constructor (public tableServise: TableService) {}

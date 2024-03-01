@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 @Component({
   selector: 'app-table-modal-add-edit',
   templateUrl: './modal-add-edit.component.html',
-  styleUrls: ['./modal-add-edit.component.css']
+  styleUrls: ['./modal-add-edit.component.scss']
 })
 export class ModalAddEditComponent implements OnInit {
   @Input() type: ModalType = ModalType.NONE;
