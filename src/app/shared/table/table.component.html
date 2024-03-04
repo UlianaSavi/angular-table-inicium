@@ -1,7 +1,7 @@
 <div class="table container">
   <div class="table-header">
     <h4 class="title title-blue">Clients</h4>
-    <input class="table__names__input" type="text" (input)="search()" [formControl]="searchInput"
+    <input class="table__names__input input" type="text" (input)="search()" [formControl]="searchInput"
       placeholder="Search...">
   </div>
   <div class="table-body">
@@ -21,30 +21,36 @@
         </svg>
       </button>
     </div>
-    <div class="table__names-wrap">
-      <div class="table__names" *ngFor="let name of shownColumnNames | keyvalue: setWithoutSort">
-        <div class="table__names__inner">
-          <button class="table__names__text title-blue-dark" (click)="sort(name.key)"
-            *ngIf="name.value">{{ name.key }}</button>
-          <div class="table__names__arrow" [ngClass]="currSortType">
-            <div *ngIf="currSortColumn === name.key">&nbsp;&#5169;</div>
+    <div appShadow class="table-wrap">
+      <div class="table__names-wrap">
+        <div class="plug"></div>
+        <div class="table__names" *ngFor="let name of shownColumnNames | keyvalue: setWithoutSort">
+          <div class="table__names__inner">
+            <button class="table__names__text title-blue-dark" (click)="sort(name.key)"
+              *ngIf="name.value">{{ name.key }}</button>
+            <div class="table__names__arrow" [ngClass]="currSortType">
+              <div *ngIf="currSortColumn === name.key">&nbsp;&#5169;</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="table-body__row" *ngFor="let item of tableServise.data$.value; let i = index">
-      <button class="btn btn-none table-body__row__cell checkbox-cell">
-        <input (click)="select(item.id)" type="checkbox" name="checkbox" id="{{ 'checkbox-' + i }}">
-      </button>
-      <ng-container *ngFor="let row of item | keyvalue: setWithoutSort">
-        <ng-container *ngIf="!validate(row.value)">
-          <div [id]="i" class="table-body__row__cell">
-            <a class="link" (click)="openModal(modalTypes.EDIT, $event, item.id)" href="">
-              <i class="i">{{ row.value }}</i>
-            </a>
-          </div>
+      <div class="loader" *ngIf="tableServise.loader">
+        <img src="/assets/icons/loader.gif" alt="Loading...">
+      </div>
+      <div class="table-body__row" *ngFor="let item of tableServise.data$.value; let i = index">
+        <button class="btn btn-none table-body__row__cell checkbox-cell">
+          <input (click)="select(item.id)" type="checkbox" name="checkbox" class="input" id="{{ 'checkbox-' + i }}">
+        </button>
+        <ng-container *ngFor="let row of item | keyvalue: setWithoutSort">
+          <ng-container *ngIf="!validate(row.value)">
+            <div [id]="i" class="table-body__row__cell">
+              <a class="link" (click)="openModal(modalTypes.EDIT, $event, item.id)" href="">
+                <i class="i">{{ row.value }}</i>
+              </a>
+            </div>
+          </ng-container>
         </ng-container>
-      </ng-container>
+      </div>
     </div>
   </div>
 </div>

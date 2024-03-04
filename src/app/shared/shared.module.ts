@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModalComponent } from './modal/modal.component';
 import { ModalDeleteComponent } from './modal/modal-delete/modal-delete.component';
 import { ModalAddEditComponent } from './modal/modal-add-edit/modal-add-edit.component';
+import { ShadowDirective } from '../directives/shadow.directive';
 
 
 
@@ -16,6 +17,7 @@ import { ModalAddEditComponent } from './modal/modal-add-edit/modal-add-edit.com
     TableModalComponent,
     ModalDeleteComponent,
     ModalAddEditComponent,
+    ShadowDirective,
   ],
   imports: [
     CommonModule,

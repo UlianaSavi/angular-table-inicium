@@ -19,3 +19,9 @@
     background: $black-transparent;
   }
 }
+
+@media (max-width: 375px) {
+  .modal {
+    margin: 0 10px;
+  }
+}

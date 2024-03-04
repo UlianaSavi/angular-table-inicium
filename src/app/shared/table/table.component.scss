@@ -1,17 +1,29 @@
 @import '/src/variables';
+@import '/src/styles.scss';
 
 .table {
   position: relative;
-  width: 95%;
+  width: 100%;
   height: fit-content;
   max-height: 95vh;
   padding: 0 20px;
+  overflow: auto;
 
-  &-header__open-modal__arr, &-body {
+  &-wrap {
+    overflow: auto;
+
+    &.scrolled {
+      .table__names-wrap {
+        box-shadow: $box-shadow;
+      }
+    }
+  }
+
+  &-header__open-modal__arr,
+  &-body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    overflow: auto;
     color: $grey;
     background: $white-simple;
     border-radius: 20px;
@@ -22,15 +34,24 @@
     width: 100%;
     min-width: 200px;
     border-bottom: 1px solid $very-lite-grey;
-    padding: 10px;
+    padding: 14px 10px;
     word-wrap: break-word;
     text-align: left;
   }
 
   &-body {
+    border: 10px solid white;
+    overflow: auto;
+    max-height: 100vh;
+
     &__row {
       display: flex;
+      padding: 0 10px;
       cursor: pointer;
+
+      .btn.btn-none:hover {
+        background: $transparent;
+      }
     }
 
     &__row:hover {
@@ -46,7 +67,6 @@
       width: 100%;
       min-width: 18px;
       max-width: 18px;
-      padding-left: 20px;
       border-radius: 0;
       cursor: default;
     }
@@ -72,6 +92,11 @@
       border-radius: 10px;
       border: 1px solid $very-lite-grey;
       padding: 10px;
+
+      &:focus-visible {
+        outline: none;
+        border: 1px solid $blue-hover;
+      }
     }
 
     &__inner {
@@ -97,8 +122,8 @@
     }
 
     &-wrap {
-      display: flex;
       position: sticky;
+      display: flex;
       top: 0px;
       background: $white-simple;
     }
@@ -149,6 +174,10 @@
 }
 
 @media (max-width: 560px) {
+  .table {
+    padding: 0;
+  }
+
   .btn {
     padding: 6px 10px;
   }
@@ -156,6 +185,14 @@
 
 @media (max-width: 360px) {
   .table {
+
+    &-body__row__cell,
+    &__names {
+      min-width: 120px;
+      padding: 14px 5px;
+      font-size: 14px;
+    }
+
     &-header {
       align-items: flex-start;
       flex-direction: column;
@@ -169,6 +206,10 @@
     &__names__input {
       margin-left: 10px;
       max-width: 200px;
+    }
+
+    &__names__inner {
+      min-height: auto;
     }
   }
 }
