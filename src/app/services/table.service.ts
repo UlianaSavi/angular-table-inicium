@@ -16,6 +16,8 @@ export class TableService {
   public dataWithoutFilter: IData[] = [];
   public selectedRows: string[] = [];
 
+  public loader = false;
+
   private shownColumns: IRowsToShow = {
     name:	true,
     surname:	true,
@@ -35,11 +37,13 @@ export class TableService {
       this.dataWithoutSort = structuredClone(dataFromLocalStorage);
       return;
     }
+    this.loader = true;
     this.apiService.getData().subscribe((data) => {
       data.users.forEach((item) => {
         item.id = uuidv4()
       }); // add ids for every item
       this.data$.next(data.users);
+      this.loader = false;
       this.initialData = structuredClone(this.data$.value);
       this.dataWithoutSort = structuredClone(this.data$.value);
       localStorage.setItem('data', JSON.stringify(this.data$.value));
