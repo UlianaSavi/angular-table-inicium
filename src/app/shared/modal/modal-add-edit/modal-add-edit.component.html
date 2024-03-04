@@ -1,0 +1,29 @@
+<div class="modal-add-edit">
+  <h2 *ngIf="type === modalTypes.ADD">
+    New client
+  </h2>
+  <h2 *ngIf="type === modalTypes.EDIT">
+    Editing
+  </h2>
+  <form class="modal-add-edit__form" action="" [formGroup]="form">
+    <input
+      [ngClass]="{'input-filled': form.controls.name.valid, 'input-failed': form.controls.name.invalid && form.controls.name.touched}"
+      class="modal-add-edit__form__input" minlength="2" id="first-name" type="text" formControlName="name"
+      placeholder="Your firstName">
+    <input
+      [ngClass]="{'input-filled': form.controls.surname.valid, 'input-failed': form.controls.surname.invalid && form.controls.surname.touched}"
+      class="modal-add-edit__form__input" id="last-name" type="text" formControlName="surname"
+      placeholder="Your lastName">
+    <input
+      [ngClass]="{'input-filled': form.controls.email.valid, 'input-failed': form.controls.email.invalid && form.controls.email.touched}"
+      class="modal-add-edit__form__input" id="email" type="email" formControlName="email" placeholder="Your email">
+    <input
+      [ngClass]="{'input-filled': form.controls.phone.valid, 'input-failed': form.controls.phone.invalid && form.controls.phone.touched}"
+      class="modal-add-edit__form__input" id="phone" type="text" formControlName="phone" placeholder="Your phone">
+  </form>
+  <div class="modal-add-edit__buttons">
+    <button class="btn btn-none" (click)="close()">Cancel</button>
+    <button [disabled]="!form.valid" class="btn btn-blue" [ngClass]="{'btn-disabled': !form.valid}"
+      (click)="type === modalTypes.ADD ? addNewItem() : editItem()">Save</button>
+  </div>
+</div>

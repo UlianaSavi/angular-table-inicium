@@ -4,7 +4,7 @@ import { Paths } from 'src/app/app-routing.module';
 @Component({
   selector: 'app-start-page',
   templateUrl: './start-page.component.html',
-  styleUrls: ['./start-page.component.css']
+  styleUrls: ['./start-page.component.scss']
 })
 export class StartPageComponent {
   public paths = Paths;

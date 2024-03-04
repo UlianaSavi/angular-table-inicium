@@ -1,4 +1,5 @@
 export interface IData {
+  id: string;
   name:	string;
   surname:	string;
   email:	string;
@@ -19,4 +20,11 @@ export enum SortTypes {
   DEFAULT = 'default',
   ASC = 'asc',
   DESC = 'desc',
+}
+
+export enum ModalType {
+  NONE = 'none',
+  DELETE = 'delete',
+  ADD = 'add',
+  EDIT = 'edit',
 }

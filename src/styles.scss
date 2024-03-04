@@ -1,0 +1,161 @@
+@import 'variables';
+
+@font-face {
+  font-family: roboto-bold;
+  src: url(./assets/fonts/roboto/Roboto-Bold.ttf);
+}
+
+@font-face {
+  font-family: roboto-medium;
+  src: url(./assets/fonts/roboto/Roboto-Medium.ttf);
+}
+
+@font-face {
+  font-family: roboto-regular;
+  src: url(./assets/fonts/roboto/Roboto-Regular.ttf);
+}
+
+@font-face {
+  font-family: roboto-light;
+  src: url(./assets/fonts/roboto/Roboto-Light.ttf);
+}
+
+body {
+  box-sizing: border-box;
+  font-family: roboto-regular;
+  overflow: hidden;
+  background-color: $main-background;
+}
+
+.container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 20px 16px 0 16px;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.title {
+  font-size: 2.2rem;
+  line-height: 3rem;
+  letter-spacing: -0.055rem;
+  font-weight: normal;
+
+  &-blue {
+    color: $blue-default;
+
+    &-dark {
+      color: $blue-dark;
+    }
+  }
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  max-height: 34rem;
+}
+
+.btn {
+  width: 100%;
+  max-width: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11.5px 16px;
+  background: $white-simple;
+  border: 1px solid $dark-grey;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: all .2s;
+
+  &:hover {
+    transition: all .2s;
+  }
+
+  &:disabled {
+    cursor: default;
+    border: 1px solid $very-lite-grey;
+    color: $white-simple;
+    background: $btn-disabled-grey;
+  }
+
+  &.btn-none {
+    background: $transparent;
+    border: none;
+
+    &:hover {
+      background: $main-background;
+      transition: all .2s;
+    }
+
+  }
+
+  &-blue {
+    border: none;
+    color: $white-simple;
+    background-color: $blue-default;
+
+    &:hover {
+      background-color: $blue-hover;
+    }
+  }
+
+  &.icon {
+    position: relative;
+    width: 100%;
+    max-width: 45px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all .2s;
+
+    &:hover {
+      background: $white-simple;
+    }
+
+    &:not(.icon-disabled):hover::before {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: $ceil-hover;
+      transition: all .2s;
+    }
+
+    &-disabled {
+      cursor: not-allowed;
+    }
+
+  }
+}
+
+.icon {
+  svg {
+    cursor: pointer;
+    fill: $blue-dark-for-icons;
+  }
+
+  &-disabled svg {
+    cursor: not-allowed;
+    fill: $very-lite-grey;
+  }
+}
+
+.i {
+  font-style: normal;
+
+  &:hover {
+    color: $blue-default;
+    text-decoration: underline;
+  }
+}
+
+.link {
+  color: $black;
+  text-decoration: none;
+}

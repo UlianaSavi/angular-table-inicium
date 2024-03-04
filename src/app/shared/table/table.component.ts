@@ -1,64 +1,49 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/services/api.service';
-import { IData, IRowsToShow, SortTypes } from 'src/app/types';
-import { TableSettingsService } from '../../services/table-settings.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SEARCH_MIN_LEN, START_TABLE_PAGE } from 'src/constants';
-import { BehaviorSubject, Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { IRowsToShow, ModalType, SortTypes } from 'src/app/types';
+import { TableService } from '../../services/table.service';
+import { FormControl, Validators } from '@angular/forms';
+import { SEARCH_MIN_LEN } from 'src/constants';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { validate as isValidUUID } from 'uuid';
+import { setWithoutSort } from 'src/utils';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.css']
+  styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
-  constructor (private apiService: ApiService, private tableSettingsServise: TableSettingsService) {}
-
-  public data$ = new BehaviorSubject<IData[]>([]);
-  public initialData: IData[] = [];
-  private dataWithoutSort: IData[] = [];
-  private dataWithoutFilter: IData[] = [];
-  private firstFiltering = true;
+  constructor (public tableServise: TableService) {}
 
   public currSortType = SortTypes.DEFAULT;
   public currSortColumn: string | null = null;
   public sortTypes = SortTypes;
 
+  public validate = isValidUUID;
+  public setWithoutSort = setWithoutSort;
+
   public shownColumnNames: IRowsToShow | null = null;
   public shownColumnNamesMaxLen = 0;
   public shownColumnNamesLen = 0;
 
-  public pageGoForm: FormGroup = new FormGroup({
-    itemsPerPage: new FormControl(START_TABLE_PAGE, [
-        Validators.max(this.data$.value?.length || START_TABLE_PAGE),
-        Validators.min(START_TABLE_PAGE)
-      ]),
-  });
+  public modalTypes = ModalType;
+
   public searchInput = new FormControl('', [Validators.minLength(SEARCH_MIN_LEN)]);
   private searchText$ = new Subject<string>();
-  public currPage = START_TABLE_PAGE;
+
+  private firstFiltering = true;
 
   public ngOnInit() {
-    this.apiService.getData().subscribe((data) => {
-      this.data$.next(data.users);
-      this.initialData = structuredClone(this.data$.value);
-      this.dataWithoutSort = structuredClone(this.data$.value);
+    this.tableServise.getData();
 
-      this.data$.subscribe((data) => {
-        this.pageGoForm.patchValue({
-          itemsPerPage: data?.length || START_TABLE_PAGE,
-        });
-      });
-    });
-
-    this.tableSettingsServise.shownColumns$.subscribe((value) => {
+    this.tableServise.shownColumns$.subscribe((value) => {
       this.shownColumnNames = value;
       if (this.shownColumnNames) {
         this.shownColumnNamesMaxLen = Object.keys(this.shownColumnNames).length;
         this.shownColumnNamesLen = Object.values(this.shownColumnNames).filter((item: boolean) => item).length;
       }
-      if (this.initialData.length) {
-        this.data$.next(this.initialData);
+      if (this.tableServise.initialData.length) {
+        this.tableServise.data$.next(this.tableServise.initialData);
         this.resetTable();
       }
     });
@@ -68,15 +53,15 @@ export class TableComponent implements OnInit {
       distinctUntilChanged()
     ).subscribe((searchStr) => {
       if (this.firstFiltering) {
-        this.dataWithoutFilter = structuredClone(this.data$.value); // save data before filtering
+        this.tableServise.dataWithoutFilter = structuredClone(this.tableServise.data$.value); // save data before filtering
         this.firstFiltering = false;
       }
-      if (this.dataWithoutFilter.length) {
-        const res = this.tableSettingsServise.filter(this.dataWithoutFilter, searchStr);
+      if (this.tableServise.dataWithoutFilter.length) {
+        const res = this.tableServise.filter(this.tableServise.dataWithoutFilter, searchStr); // filtering
         if (res) {
-          this.data$.next(res);
+          this.tableServise.data$.next(res);
         } else {
-          this.data$.next(this.dataWithoutFilter); // if nothing found - return initial data without any filtering
+          this.tableServise.data$.next(this.tableServise.dataWithoutFilter); // if nothing found - return initial data without any filtering
         }
       }
     });
@@ -104,12 +89,12 @@ export class TableComponent implements OnInit {
         break;
     }
     this.currSortType = type;
-    if (this.data$.value && this.dataWithoutSort.length) {
+    if (this.tableServise.data$.value && this.tableServise.dataWithoutSort.length) {
       if (type === this.sortTypes.DEFAULT) {
-        this.data$.next(structuredClone(this.tableSettingsServise.sort(this.dataWithoutSort, name, type)));
+        this.tableServise.data$.next(structuredClone(this.tableServise.sort(this.tableServise.dataWithoutSort, name, type)));
         return;
       }
-      this.tableSettingsServise.sort(this.data$.value, name, type);
+      this.tableServise.sort(this.tableServise.data$.value, name, type);
     }
   }
 
@@ -117,5 +102,16 @@ export class TableComponent implements OnInit {
     if (this.searchInput.valid) {
       this.searchText$.next(this.searchInput.value || '');
     }
+  }
+
+  public select(i: string) {
+    this.tableServise.select(i);
+  }
+
+  public openModal(type: ModalType, event?: Event, itemForEditId?: string) {
+    if (type === ModalType.EDIT) {
+      this.tableServise.openTableModal(type, event, itemForEditId)
+    }
+    this.tableServise.openTableModal(type, event)
   }
 }

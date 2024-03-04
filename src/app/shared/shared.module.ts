@@ -4,13 +4,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableComponent } from './table/table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxPaginationModule } from 'ngx-pagination';
+import { TableModalComponent } from './modal/modal.component';
+import { ModalDeleteComponent } from './modal/modal-delete/modal-delete.component';
+import { ModalAddEditComponent } from './modal/modal-add-edit/modal-add-edit.component';
 
 
 
 @NgModule({
   declarations: [
     TableComponent,
+    TableModalComponent,
+    ModalDeleteComponent,
+    ModalAddEditComponent,
   ],
   imports: [
     CommonModule,
@@ -18,7 +23,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxPaginationModule
   ],
   providers: [],
   exports: [
