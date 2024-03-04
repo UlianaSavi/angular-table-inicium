@@ -5,6 +5,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { SEARCH_MIN_LEN } from 'src/constants';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { validate as isValidUUID } from 'uuid';
+import { setWithoutSort } from 'src/utils';
 
 @Component({
   selector: 'app-table',
@@ -19,6 +20,7 @@ export class TableComponent implements OnInit {
   public sortTypes = SortTypes;
 
   public validate = isValidUUID;
+  public setWithoutSort = setWithoutSort;
 
   public shownColumnNames: IRowsToShow | null = null;
   public shownColumnNamesMaxLen = 0;

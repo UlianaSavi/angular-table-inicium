@@ -22,7 +22,7 @@
       </button>
     </div>
     <div class="table__names-wrap">
-      <div class="table__names" *ngFor="let name of shownColumnNames | keyvalue">
+      <div class="table__names" *ngFor="let name of shownColumnNames | keyvalue: setWithoutSort">
         <div class="table__names__inner">
           <button class="table__names__text title-blue-dark" (click)="sort(name.key)"
             *ngIf="name.value">{{ name.key }}</button>
@@ -36,7 +36,7 @@
       <button class="btn btn-none table-body__row__cell checkbox-cell">
         <input (click)="select(item.id)" type="checkbox" name="checkbox" id="{{ 'checkbox-' + i }}">
       </button>
-      <ng-container *ngFor="let row of item | keyvalue">
+      <ng-container *ngFor="let row of item | keyvalue: setWithoutSort">
         <ng-container *ngIf="!validate(row.value)">
           <div [id]="i" class="table-body__row__cell">
             <a class="link" (click)="openModal(modalTypes.EDIT, $event, item.id)" href="">
