@@ -1,5 +1,10 @@
-# angular-table-inicium
-Flexible angular table for working with differents api
+# Angular fixeble table
+**PREVIEW** - `https://angular-table-inicium.netlify.app/`
+
+### Flexible angular table for working with differents api
+![изображение](https://github.com/UlianaSavi/angular-table-inicium/assets/105851981/d0198dda-cf91-4896-a564-160a4c429758)
+![изображение](https://github.com/UlianaSavi/angular-table-inicium/assets/105851981/9f5b53a5-b534-4ba9-b9f3-9e90db05cf46)
+
 
 ## About functionality of the app:
 
